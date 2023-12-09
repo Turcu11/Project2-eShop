@@ -1,5 +1,5 @@
 public interface IeShop {
 
     void registerSeller(ISeller seller);
-    void registerCustomer();
+    void registerCustomer(ICustomer customer);
 }
