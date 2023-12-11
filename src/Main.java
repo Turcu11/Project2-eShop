@@ -9,14 +9,16 @@ public class Main {
 
         seller1.addProductsToOffer(WritingSoftware);
         seller1.addProductsToOffer(LenovoLegion);
-        System.out.println("------------------------------------------------------------------------");
-        customer1.addProductToCart(new Laptop(1,"HP", 4500, 1));
-        customer1.addProductToCart(new Laptop(2, "AlienWare", 15000, 1));
-        customer1.showCartContent();
-
         shop.registerSeller(seller1);
-        customer1.getCartTotal();
+        System.out.println("------------------------------------------------------------------------");
+        shop.seeCurrentSellersOffers();
+        customer1.addProductToCart(LenovoLegion, 3);
+        customer1.addProductToCart(WritingSoftware, 1);
+        customer1.showCartContent();
+        System.out.println("------------------------------------------------------------------------");
 
+        shop.seeCurrentSellersOffers();
+        customer1.getCartTotal();
 
     }
 }

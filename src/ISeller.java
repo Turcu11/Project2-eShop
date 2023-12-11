@@ -1,6 +1,9 @@
+import java.util.List;
+
 public interface ISeller {
 
     int getId();
-    void getSellersOffer();
+    List<Product> getSellersOffer();
 
+    void decrementStock(int id, int quantity);
 }

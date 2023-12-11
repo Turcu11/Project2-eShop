@@ -1,6 +1,4 @@
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Seller implements ISeller{
 
@@ -34,10 +32,21 @@ public class Seller implements ISeller{
         return name;
     }
 
-    @Override
-    public void getSellersOffer() {
+    public void decrementStock(int id, int quantity){
         for(Map.Entry<Integer, Product> entry : availableOffer.entrySet()){
+            if(entry.getKey() == id){
+                entry.getValue().stock = entry.getValue().stock -quantity;
+            }
+        }
+    }
+
+    @Override
+    public List<Product> getSellersOffer() {
+        List<Product> productsList = new ArrayList<>();
+        for(Map.Entry<Integer, Product> entry : availableOffer.entrySet()){
+            productsList.add(entry.getValue());
             System.out.println("The product is: "+ entry.getValue().getName() + " and it has the id of: " + entry.getValue().getId() + " the stock is: " + entry.getValue().getStock());
         }
+        return productsList;
     }
 }

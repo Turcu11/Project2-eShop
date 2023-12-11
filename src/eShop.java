@@ -1,10 +1,13 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class eShop implements IeShop{
 
     private static volatile eShop instance;
-    private eShop(){}
+    private eShop(){
+        this.notificationService = new NotificationService();
+    }
 
     public static eShop getInstance(){
         if(instance == null){
@@ -17,6 +20,7 @@ public class eShop implements IeShop{
         return instance;
     }
 
+    private final NotificationService notificationService;
     Map<Integer, ISeller> sellersList = new HashMap<>();
     Map<Integer, ICustomer> customersList = new HashMap<>();
 
@@ -38,7 +42,22 @@ public class eShop implements IeShop{
         customersList.put(customer.getId(), customer);
     }
 
-    public void handleOrder(ICustomer customer){
+    public void seeCurrentSellersOffers(){
+        for(Map.Entry<Integer, ISeller> entry : sellersList.entrySet()){
+            entry.getValue().getSellersOffer();
+        }
+    }
 
+    public void handleOrder(ICustomer customer, Cart cart){
+        List<Product> cartList = cart.getCartContent();
+
+        for (Product product : cartList) {
+            for (Map.Entry<Integer, ISeller> entry : sellersList.entrySet()) {
+                ISeller seller = entry.getValue();
+                if (seller.getSellersOffer().contains(product)) {
+                    seller.decrementStock(product.getId(), product.getStock());
+                }
+            }
+        }
     }
 }

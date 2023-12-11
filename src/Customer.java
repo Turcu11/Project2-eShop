@@ -14,16 +14,20 @@ public class Customer implements ICustomer{
         this.shop = shop;
     }
 
-    void addProductToCart(Product product){
-        cart.addProductToCart(product);
+    void addProductToCart(Product product, int quantity){
+        cart.addProductToCart(product, quantity);
     }
 
     double getCartTotal(){
         return cart.getCartTotal();
     }
 
+    void order(Cart cart){
+        shop.handleOrder(this, cart);
+    }
+
     void showCartContent(){
-        cart.showCartContent();
+        cart.getCartContent();
     }
 
     @Override
